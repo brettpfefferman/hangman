@@ -1,0 +1,14 @@
+h1 {
+    color: orangered;
+    font-family: 
+}
+
+body {
+    background-repeat: repeat;
+    background-color: lightblue;
+}
+
+#guess {
+    letter-spacing: 20px;
+    font-size: 40px;
+}
