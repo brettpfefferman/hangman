@@ -12,13 +12,9 @@ var words = [
     'CARL WHEEZER'
 
 ];
-var secretWord, wrongCount, guess;
 
 /*------------- app's state -------------*/
-//source of secret words 
-//wrong count (initialize to zero; inc w/ each wrong guess)
-//holds the player's guess so far. initialize to be a string of '_''s same as the # as length of secret word
-// when guess is = to secret word, we have a winner
+var secretWord, wrongCount, guess;
 
 /*------------- cached element references -------------*/
 var $guess = $('#guess');
@@ -28,24 +24,26 @@ var $message = $('#message');
 /*------------- event listeners -------------*/
 $('#letters').on('click', handleLetterClick);
 
-$('#reset').on('click', resetGame);
+$('#reset').on('click', initialize);
 
 /*------------- functions -------------*/
-resetGame();
+initialize();
 
-function resetGame() {
+function initialize() {
     wrongCount = 0;
     secretWord = words[getRandomInt(words.length -1)];
-    guess = '_'.repeat(secretWord.length);
-    // guess = "";
-    // for ( var i = 0; i < secretWord.length; i++) {
-    //     var word = secretWord.split();
-    //     if (word[i] !== ' ') {
-    //         guess += '_'
-    //     } else {
-    //         guess += ' ';
-    //     }
-    // }
+
+    guess = "";
+    
+    for (var i = 0; i < secretWord.length; i++) {
+      var currentLetter = secretWord[i];
+      if (currentLetter === " ") {
+          guess += " "
+      } else {
+          guess += "_";
+      }
+    };
+
     $('button.letter-button').prop('disabled', false);
     render();
 }
@@ -54,50 +52,44 @@ function getRandomInt(max) {
     return Math.floor (Math.random() * (max + 1));
 }
 
-
 function render() {
     $guess.html(guess);
-    console.log(wrongCount);
-    $('#wrong').html(wrongCount);
+    $('#wrong').html(`WRONG<br>GUESSES<br>${wrongCount}`);
     $img.attr('src', 'images/img' + wrongCount + '.png')
-    
-    console.log(guess);
 
     if (guess === secretWord) {
         $message.html("Congratulations!! You solved HangMan!");
+        $message.fadeIn();
     } else if ( wrongCount === 6) {
-        $message.html("Sorry! You've run out of chances");
+        $message.html("Sorry! You've run out of chances.");
+        $message.fadeIn();
     } else {
         $message.html("")
+        $message.hide();
     }
 }
 
 function handleLetterClick (evt) {
-    if (wrongCount === 6) {
-        // $().innerHTML = ("Sucks to suck. You lose.")
-        return;
+    if (wrongCount === 6) return;
+
+    var letter = evt.target.textContent;
+    console.log(secretWord);
+    if (secretWord.includes(letter)) {
+        var pos = secretWord.indexOf(letter);
+        while ( pos >= 0) {
+            guess = guess.split('');
+            guess[pos] = letter;
+            guess = guess.join('');
+            pos = secretWord.indexOf(letter,pos +1);
+        }
     } else {
-        var letter = evt.target.textContent;
-        console.log(letter);
-        console.log(secretWord);
-        if (secretWord.includes(letter)) {
-            var pos = secretWord.indexOf(letter);
-            while ( pos >= 0) {
-                guess = guess.split('');
-                guess[pos] = letter;
-                guess = guess.join('');
-                console.log(guess);
-                pos = secretWord.indexOf(letter,pos +1);
-            }
-    } else {
-        wrongCount++;
+        if (evt.target.id !== "reset") {
+            wrongCount++;
         }
     }
-    if (evt.target.id === "reset") {
-        return;
-    } else {
-        $(evt.target).prop('disabled', true);
-        render();
-    }
+    
+    $(evt.target).prop('disabled', true);
+    $('#reset').prop('disabled', false);
+    render();
 }
 

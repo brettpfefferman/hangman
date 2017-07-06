@@ -1,12 +1,13 @@
 h1 {
     color: orangered;
     font-family: 'Indie Flower', cursive;
-    font-size: 350%;
+    font-size: 60px;
 }
 
 body {
     background-color: lightblue;
     text-align: center;
+    margin: 41px;
 }
 
 #guess {
@@ -17,5 +18,45 @@ body {
 }
 
 #hang-img {
-    margin: -130px;
+    font-size: 30px;
+    margin: -185px;
 }
+
+.letter-button {
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size:10px;
+    background-color:white;
+    font-family: 'Indie Flower', cursive;
+    cursor: pointer;
+    letter-spacing: 4px;
+}
+#reset {
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size:15px;
+    background-color:gold;
+    font-family: 'Indie Flower', cursive;
+    cursor: pointer;
+    letter-spacing: 4px;
+}
+
+#wrong {
+    position: relative;
+    margin-top: -181px;
+    font-family: 'Indie Flower', cursive;
+    font-size: 30px;
+    line-height: 31px;
+}
+
+#message {
+    position: relative;
+    width: 50%;
+    margin: -539px auto;
+    display: none;
+    border-radius: 5px;
+    color: blueviolet;
+    padding: 130px;
+    font-family: 'Indie Flower', cursive;
+    font-size: 40px;
+} 
