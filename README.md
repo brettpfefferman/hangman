@@ -1,0 +1,1 @@
+This repo contains a Hang Man project built in JS, CSS and HTML.s
