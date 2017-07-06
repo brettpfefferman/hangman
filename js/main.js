@@ -9,6 +9,7 @@ var words = [
     'CHUCKIE FINSTER',
     'ANGELICA PICKLES',
     'DIDI PICKLES',
+    'PATRICK STAR',
     'CARL WHEEZER'
 
 ];
@@ -54,7 +55,7 @@ function getRandomInt(max) {
 
 function render() {
     $guess.html(guess);
-    $('#wrong').html(`WRONG<br>GUESSES<br>${wrongCount}`);
+    $('#wrong').html(`WRONG GUESSES: ${wrongCount}`);
     $img.attr('src', 'images/img' + wrongCount + '.png')
 
     if (guess === secretWord) {
