@@ -4,11 +4,12 @@ h1 {
 }
 
 body {
-    background-repeat: repeat;
     background-color: lightblue;
+    text-align: center;
 }
 
 #guess {
     letter-spacing: 20px;
     font-size: 40px;
 }
+

@@ -23,9 +23,12 @@ var secretWord, wrongCount, guess;
 /*------------- cached element references -------------*/
 var $guess = $('#guess');
 var $img = $('#hang-img');
+var $message = $('#message');
 
 /*------------- event listeners -------------*/
-$('#letters').on('click', 'button', handleLetterClick);
+$('#letters').on('click', handleLetterClick);
+
+$('#reset').on('click', resetGame);
 
 /*------------- functions -------------*/
 resetGame();
@@ -34,6 +37,15 @@ function resetGame() {
     wrongCount = 0;
     secretWord = words[getRandomInt(words.length -1)];
     guess = '_'.repeat(secretWord.length);
+    // guess = "";
+    // for ( var i = 0; i < secretWord.length; i++) {
+    //     var word = secretWord.split();
+    //     if (word[i] !== ' ') {
+    //         guess += '_'
+    //     } else {
+    //         guess += ' ';
+    //     }
+    // }
     $('button.letter-button').prop('disabled', false);
     render();
 }
@@ -45,13 +57,25 @@ function getRandomInt(max) {
 
 function render() {
     $guess.html(guess);
+    console.log(wrongCount);
     $('#wrong').html(wrongCount);
     $img.attr('src', 'images/img' + wrongCount + '.png')
+    
+    console.log(guess);
+
+    if (guess === secretWord) {
+        $message.html("Congratulations!! You solved HangMan!");
+    } else if ( wrongCount === 6) {
+        $message.html("Sorry! You've run out of chances");
+    } else {
+        $message.html("")
+    }
 }
 
 function handleLetterClick (evt) {
-    if (evt.target.id === "reset") {
-        resetGame();
+    if (wrongCount === 6) {
+        // $().innerHTML = ("Sucks to suck. You lose.")
+        return;
     } else {
         var letter = evt.target.textContent;
         console.log(letter);
@@ -65,14 +89,15 @@ function handleLetterClick (evt) {
                 console.log(guess);
                 pos = secretWord.indexOf(letter,pos +1);
             }
-        } else {
-            wrongCount++;
+    } else {
+        wrongCount++;
         }
-        $(evt.target).prop('disabled', true);
     }
-    render ();
+    if (evt.target.id === "reset") {
+        return;
+    } else {
+        $(evt.target).prop('disabled', true);
+        render();
+    }
 }
 
-function setTimeout() {
-    //when spaces are all filled
-}
