@@ -6,8 +6,9 @@ var words = [
     'COSMO',
     'WANDA',
     'TIMMY TURNER',
-    'CHUCKIE FINSTER',
-    'ANGELICA PICKLES',
+    'MR KRABS',
+    'MRS PUFF',
+    'SANDY CHEEKS',
     'DIDI PICKLES',
     'PATRICK STAR',
     'CARL WHEEZER'
